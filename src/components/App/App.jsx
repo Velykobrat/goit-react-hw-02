@@ -21,20 +21,21 @@ function App() {
         }));
     };
 
-    const resetFeedback = () => {
+const resetFeedback = () => {
         setFeedback({ good: 0, neutral: 0, bad: 0 });
     };
 
     const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+    const positiveFeedback = totalFeedback > 0 ? Math.round((feedback.good / totalFeedback) * 100) : 0;
 
     return (
         <div className="App">
             <Description />
-            <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} resetFeedback={resetFeedback} />
+            <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback} />
             {totalFeedback > 0 ? (
-                <Feedback feedback={feedback} />
+                <Feedback feedback={feedback} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback} />
             ) : (
-                <Notification message="No feedback given" />
+                <Notification message="No feedback yet" />
             )}
         </div>
     );
