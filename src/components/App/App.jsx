@@ -13,10 +13,17 @@ function App() {
         localStorage.setItem('feedback', JSON.stringify(feedback));
     }, [feedback]);
 
+    const updateFeedback = (feedbackType) => {
+        setFeedback((prevFeedback) => ({
+            ...prevFeedback,
+            [feedbackType]: prevFeedback[feedbackType] + 1,
+        }));
+    };
+
     return (
         <div className="App">
             <Description />
-            <Options feedback={feedback} setFeedback={setFeedback} />
+            <Options updateFeedback={updateFeedback} />
             <Feedback feedback={feedback} />
         </div>
     );
